@@ -1,5 +1,5 @@
-class ClassA{
-    constructor(){
+class ClassA {
+    constructor() {
         console.log("Class A");
     }
 }

@@ -1,3 +1,3 @@
-const myModule = require("./modules.js");
+import myModule from "./myModule.js";
 
-console.log(myModule);
+new myModule();
