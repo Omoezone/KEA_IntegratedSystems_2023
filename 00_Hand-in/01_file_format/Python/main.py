@@ -3,8 +3,9 @@ import json
 import yaml
 import xmltodict
 
+#Jeg har her lavet dem om til dicts
 
-#CSV DONE
+#CSV
 def csvHandler():
     dic, count = {},0
     with open('./files/me.csv', 'r') as csv_file:
@@ -47,8 +48,8 @@ def xmlHandler():
     print(dic)
 
 #Handlers
-#csvHandler()
-#txtHandler()
-#jsonHandler()
-#yamlHandler()
-#xmlHandler()
+csvHandler()
+txtHandler()
+jsonHandler()
+yamlHandler()
+xmlHandler()

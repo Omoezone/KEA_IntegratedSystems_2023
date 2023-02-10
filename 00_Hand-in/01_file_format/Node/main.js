@@ -3,44 +3,47 @@ const yaml = require('js-yaml');
 const csv = require('csv-parser');
 var convert = require('xml-js');
 
-
-function csvHandler(){ //Prop change
-    const results = [];
-
-fs.createReadStream("./files/me.csv")
-  .pipe(csv())
-  .on('data', (data) => results.push(data))
-  .on('end', () => {
-    console.log(results);
-  });
+// Jeg har her lavet de fleste om til JSON objekter
+function csvHandler(){ 
+    const res = [];
+    fs.createReadStream("./files/me.csv")
+    .pipe(csv())
+    .on('data', (data) => res.push(data))
+    .on('end', () => {
+        const rest = res[0]
+        console.log("CSV output: ", rest);
+    });
 }; 
-csvHandler();
-
-function txtHandler(){ //DONE
+function txtHandler(){ 
     fs.readFile("./files/me.txt", "utf-8", (err,txt)=> {
         txt = txt.split("\r\n");
-        console.log(txt);
+        console.log("TXT output: ",txt);
     })
 }
-//txtHandler()
-//DONE EVT lav om til normalt object
+
 function xmlHandler(){
     fs.readFile("./files/me.xml", "utf-8", (err, xml) => {
         xml = convert.xml2json(xml, {compact: true, spaces: 4});
         JSON.stringify(xml);
-        console.log(xml);
+        console.log("XML output: ",xml);
     });
 }
-//xmlHandler()
-function jsonHandler(){//DONE
+
+function jsonHandler(){
     fs.readFile("./files/me.json","utf-8",(err,json) =>{
         json = JSON.parse(json);
-        console.log(json)
+        console.log("JSON output: ",json)
     });
 }
-//jsonHandler()
-function yamlHandler(){//DONE
+
+function yamlHandler(){
     const data = yaml.load(fs.readFileSync('./files/me.yaml', 'utf8'));
-    console.log(data)
+    console.log("YAML output: ",data)
 }
-//yamlHandler()
+
+// Handlers
+csvHandler();
+txtHandler();
+xmlHandler();
+jsonHandler();
+yamlHandler();
