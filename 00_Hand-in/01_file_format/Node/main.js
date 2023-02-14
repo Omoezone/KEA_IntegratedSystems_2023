@@ -12,6 +12,7 @@ function csvHandler(){
     .on('end', () => {
         const rest = res[0]
         console.log("CSV output: ", rest);
+        return rest
     });
 }; 
 function txtHandler(){ 
@@ -26,6 +27,7 @@ function xmlHandler(){
         xml = convert.xml2json(xml, {compact: true, spaces: 4});
         JSON.stringify(xml);
         console.log("XML output: ",xml);
+        return xml
     });
 }
 
@@ -39,6 +41,7 @@ function jsonHandler(){
 function yamlHandler(){
     const data = yaml.load(fs.readFileSync('./files/me.yaml', 'utf8'));
     console.log("YAML output: ",data)
+    return data
 }
 
 // Handlers
@@ -47,3 +50,4 @@ txtHandler();
 xmlHandler();
 jsonHandler();
 yamlHandler();
+
