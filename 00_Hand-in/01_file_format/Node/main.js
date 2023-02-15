@@ -1,7 +1,8 @@
-const fs = require("fs");
-const yaml = require('js-yaml');
-const csv = require('csv-parser');
-var convert = require('xml-js');
+import fs from "fs";
+import yaml from 'js-yaml';
+import csv from 'csv-parser';
+import convert from'xml-js';
+import xml2js from "xml2js";
 
 // Jeg har her lavet de fleste om til JSON objekter
 function csvHandler(){ 
@@ -23,12 +24,12 @@ function txtHandler(){
 }
 
 function xmlHandler(){
-    fs.readFile("./files/me.xml", "utf-8", (err, xml) => {
-        xml = convert.xml2json(xml, {compact: true, spaces: 4});
-        JSON.stringify(xml);
-        console.log("XML output: ",xml);
-        return xml
+    let parser = new xml2js.Parser();
+    fs.readFile('./files/me.xml', function(err, data) {
+    parser.parseString(data, function (err, result) {
+        console.log("xml output: ", result);
     });
+});
 }
 
 function jsonHandler(){

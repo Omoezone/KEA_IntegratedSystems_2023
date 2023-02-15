@@ -1,7 +1,7 @@
 import express from "express";
 import fs from "fs";
 import csv from "csv-parser";
-import convert from "xml-js";
+import xml2js from "xml2js";
 import yaml from "js-yaml";
 
 //initialization
@@ -39,11 +39,12 @@ app.get("/yaml", (req,res) =>{
     res.send(data)
 })
 app.get("/xml", (req,res) =>{
-    fs.readFile("./files/me.xml", "utf-8", (err, xml) => {
-        xml = convert.xml2json(xml, {compact: true, spaces: 4});
-        JSON.stringify(xml);
-        res.send(xml);
-    });
+    let parser = new xml2js.Parser();
+    fs.readFile('./files/me.xml', function(err, data) {
+    parser.parseString(data, function (err, result) {
+        res.send(result)
+        });
+    }); 
 })
 
 app.listen(8080, () => console.log("Server is running on port ", 8080));
