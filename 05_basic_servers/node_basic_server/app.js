@@ -9,17 +9,14 @@ const app = express();
 
 //Getters 
 app.get("/", (req, res) =>{
-    res.send({message: "frontpage"})
+    res.send({message: "frontpage"});
 });
 
 app.get("/csv", (req,res) =>{
     const resp = [];
-    fs.createReadStream("./files/me.csv")
-    .pipe(csv())
-    .on('data', (data) => resp.push(data))
-    .on('end', () => {
-        const rest = resp[0]
-        res.send(rest)
+    fs.createReadStream("./files/me.csv").pipe(csv()).on('data', (data) => resp.push(data)).on('end', () => {
+        const rest = resp[0];
+        res.send(rest);
     });
 })
 app.get("/txt", (req,res) =>{
@@ -36,13 +33,13 @@ app.get("/json", (req,res) =>{
 })
 app.get("/yaml", (req,res) =>{
     const data = yaml.load(fs.readFileSync('./files/me.yaml', 'utf8'));
-    res.send(data)
+    res.send(data);
 })
 app.get("/xml", (req,res) =>{
     let parser = new xml2js.Parser();
     fs.readFile('./files/me.xml', function(err, data) {
     parser.parseString(data, function (err, result) {
-        res.send(result)
+        res.send(result);
         });
     }); 
 })
